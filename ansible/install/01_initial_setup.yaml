@@ -1,0 +1,52 @@
+- name: Initial setup of Debian VM
+  hosts: debian_vm
+  gather_facts: yes
+  tasks:
+
+    - name: Update DNS in /etc/resolv.conf
+      become: true
+      lineinfile:
+        path: /etc/resolv.conf
+        line: "nameserver 8.8.8.8"
+        create: yes
+        state: present
+
+    - name: Update package lists and upgrade system
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install basic packages
+      apt:
+        name:
+          - curl
+          - net-tools
+          - unzip
+          - traceroute
+          - sudo
+          - vim
+          - wget
+          - build-essential
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+        state: present
+
+    - name: Add Docker repository
+      shell: |
+        curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+      args:
+        executable: /bin/bash
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Add user "administrator" to sudoers
+      lineinfile:
+        path: /etc/sudoers
+        line: "administrator  ALL=(ALL:ALL) ALL"
+        validate: 'visudo -cf %s'

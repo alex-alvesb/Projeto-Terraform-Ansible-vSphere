@@ -1,0 +1,3 @@
+---
+- name: Run initial setup
+  import_playbook: ./install/01_initial_setup.yaml
