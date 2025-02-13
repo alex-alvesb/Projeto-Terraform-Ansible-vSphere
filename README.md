@@ -1,9 +1,6 @@
-# Projeto-Terraform-Ansible-vSphere
-Clonagem de VM Debian (à partir de uma template no vSphere) e configuração básica da mesma, utilizando Terraform (Open-Tofu) e Ansible.
-
 # 🚀 Terraform + Ansible Deployment Guide in vSphere
 
-Automatize a criação e clonagem de uma VM Debian com **Terraform (Tofu)** e **Ansible**.
+Automatize a criação e clonagem de uma VM Debian (à partir de uma template no vSphere) com **Terraform (Open-Tofu)** e **Ansible**.
 
 ## **Passos**
 
